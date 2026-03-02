@@ -1,0 +1,91 @@
+p,input,btns,label{
+ width: 70%;
+
+    max-width: 300px;
+}
+p{
+    font-size: small; 
+    color: red;
+}
+input{
+    outline: none;
+    height: 20px;
+    font-size: small;
+    
+
+}
+label{
+    align-self:center;
+    
+   
+}
+body{
+    display: flex;
+    z-index: 1000;
+position: fixed;
+
+   width: 95vw;
+   height: 100vh;
+  background: linear-gradient(lightblue,rgba(0, 0, 255, 0.316)) ;
+    display: flex;
+    align-items: center;
+    justify-content:  center;
+   
+   
+}
+
+.edit-profile-con{
+    border-radius: 20px;
+    min-width: 200px;
+    display: flex;
+    max-width: 500px;
+    
+    width: 60%;
+    height:70%;
+    max-height: 500px;
+    min-height: 200px;
+    align-items:  center ;
+    
+    justify-content: center;
+    
+    flex-direction: column;
+    background:linear-gradient(rgb(251, 253, 255)69%,rgb(101, 135, 198));
+}
+.btns{
+    
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    
+}
+button{
+    border: none;
+    width: 40%;
+    height: 30px;
+}
+.save{
+    background-color: rgb(4, 253, 4);
+
+}
+.cancel{
+    background-color:rgb(255, 4, 4);
+    color: white;
+}
+
+.save:hover{
+cursor: pointer; 
+   background-color: rgb(7, 144, 7);
+}
+.cancel:hover{
+    cursor: pointer; 
+    background-color: rgb(186, 11, 11);
+}
+.save:active{
+  
+    scale: 0.9;
+}
+.cancel:active{
+    scale: 0.9;
+}

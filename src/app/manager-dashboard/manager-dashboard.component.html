@@ -1,0 +1,193 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Manager Dashboard</h1>
+    <p class="welcome-text">Welcome, <strong>{{ username || 'Manager' }}</strong>!</p>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="stats-section">
+    <h2 class="section-title">Quick Statistics</h2>
+    <div class="cards-grid">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-content">
+          <h3>Total Applicants</h3>
+          <p class="stat-number">{{ totalApplicants }}</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📋</div>
+        <div class="stat-content">
+          <h3>Pending Reviews</h3>
+          <p class="stat-number" style="color: #f39c12;">{{ pendingReviews }}</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎓</div>
+        <div class="stat-content">
+          <h3>Active Programs</h3>
+          <p class="stat-number">{{ activePrograms }}</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-content">
+          <h3>Approved This Month</h3>
+          <p class="stat-number">{{ approvedThisMonth }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Management Tools -->
+  <div class="management-section">
+    <h2 class="section-title">Management Tools</h2>
+    <div class="cards-grid">
+      <!-- Manage Managers Card (also available to managers) -->
+      <div class="action-card">
+        <div class="card-header">
+          <h3>👤 Manage Managers</h3>
+        </div>
+        <div class="card-body">
+          <p>Create or edit other manager accounts</p>
+          <ul class="card-features">
+            <li>✓ Add new managers</li>
+            <li>✓ Update manager info</li>
+            <li>✓ Remove managers</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" (click)="manageManagers()">Manage Managers</button>
+      </div>
+
+      <!-- Manage Students Card -->
+      <div class="action-card">
+        <div class="card-header">
+          <h3>👥 Manage Applicants</h3>
+        </div>
+        <div class="card-body">
+          <p>View and manage applicant information and records</p>
+          <ul class="card-features">
+            <li>✓ View all applicants</li>
+            <li>✓ Search/filter applicants</li>
+            <li>✓ Update applicant info</li>
+            <li>✓ Export applicant data</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" (click)="manageStudents()">Manage Applicants</button>
+      </div>
+
+      <!-- Manage Programs Card -->
+      <div class="action-card">
+        <div class="card-header">
+          <h3>🎓 Master Programs</h3>
+        </div>
+        <div class="card-body">
+          <p>Create, edit, and manage Master programs</p>
+          <ul class="card-features">
+            <li>✓ Create new programs</li>
+            <li>✓ Edit program details</li>
+            <li>✓ Set intake limits</li>
+            <li>✓ Manage requirements</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" (click)="managePrograms()">Manage Programs</button>
+      </div>
+
+      <!-- Review Applications Card -->
+      <div class="action-card">
+        <div class="card-header">
+          <h3>📝 Review Applications</h3>
+        </div>
+        <div class="card-body">
+          <p>Review and process submitted applications</p>
+          <ul class="card-features">
+            <li>✓ View pending applications</li>
+            <li>✓ Review documents</li>
+            <li>✓ Accept/Reject applications</li>
+            <li>✓ Send notifications</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" (click)="reviewApplications()">Review Applications</button>
+      </div>
+
+      <!-- Profile Management Card -->
+      <div class="action-card">
+        <div class="card-header">
+          <h3>🔧 My Profile</h3>
+        </div>
+        <div class="card-body">
+          <p>Manage your personal and professional information</p>
+          <div class="profile-summary">
+            <div class="profile-item">
+              <span class="label">Name:</span>
+              <span class="value">{{ managerName }}</span>
+            </div>
+            <div class="profile-item">
+              <span class="label">Email:</span>
+              <span class="value">{{ managerEmail }}</span>
+            </div>
+            <div class="profile-item">
+              <span class="label">Department:</span>
+              <span class="value">{{ managerDepartment }}</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="editProfile()">Edit Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Applications -->
+  <div class="applications-section">
+    <h2 class="section-title">Recent Applications</h2>
+    <div class="table-container">
+      <table class="applications-table">
+        <thead>
+          <tr>
+            <th>Applicant Name</th>
+            <th>Program</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of recentApplications" [ngClass]="'status-' + app.status.toLowerCase()">
+            <td class="app-name">{{ app.applicantName }}</td>
+            <td>{{ app.programName }}</td>
+            <td>{{ app.submissionDate | date:'short' }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="'badge-' + app.status.toLowerCase()">
+                {{ app.status }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <button class="btn-action" (click)="viewDetails(app._id)" title="View Details">👁️</button>
+              <button class="btn-action" (click)="processApplication(app._id)" title="Process">✏️</button>
+              <button class="btn-action" (click)="downloadDocuments(app._id)" title="Download">⬇️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="no-applications" *ngIf="recentApplications.length === 0">
+        <p>No applications to display</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Programs Overview -->
+  <div class="programs-section">
+    <h2 class="section-title">Active Master Programs</h2>
+    <div class="programs-grid">
+      <div class="program-card" *ngFor="let program of masterPrograms">
+        <h4>{{ program.name }}</h4>
+        <p class="program-capacity">Capacity: <strong>{{ program.capacity }}</strong></p>
+        <p class="program-enrolled">Enrolled: <strong>{{ program.enrolled }}</strong></p>
+        <div class="program-bar">
+          <div class="bar-fill" [style.width.%]="(program.enrolled / program.capacity) * 100"></div>
+        </div>
+        <button class="btn btn-small">Edit Program</button>
+      </div>
+    </div>
+  </div>
+</div>

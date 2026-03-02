@@ -1,0 +1,104 @@
+<div class="register-container">
+  <div class="register-split-box">
+    <div class="register-form-section">
+      <div class="form-content">
+        <h2>Create Your Account</h2>
+        <p class="subtitle">Start your Master's application journey today</p>
+
+        <form class="register-form" (ngSubmit)="register()">
+          <div class="form-group">
+            <label for="username">Full Name</label>
+            <div class="input-with-icon">
+              <span class="input-icon">👤</span>
+              <input
+                type="text"
+                id="username"
+                placeholder="Enter your full name"
+                [(ngModel)]="username"
+                name="username"
+                required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-with-icon">
+              <span class="input-icon">✉</span>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                [(ngModel)]="email"
+                name="email"
+                required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-with-icon">
+              <span class="input-icon">🔒</span>
+              <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                [(ngModel)]="password"
+                name="password"
+                required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <div class="input-with-icon">
+              <span class="input-icon">🔒</span>
+              <input
+                type="password"
+                id="confirm-password"
+                placeholder="Confirm your password"
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+                required>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn-register"
+            [disabled]="loading">
+            {{ loading ? 'Creating Account...' : 'Create Account' }}
+          </button>
+        </form>
+
+        <p class="login-link">Already have an account? <a routerLink="/login">Sign In</a></p>
+      </div>
+    </div>
+
+    <div class="register-promo-section">
+      <div class="promo-content">
+        <div class="promo-icon">🎓</div>
+        <h3>Join Our Academic Community</h3>
+        <p>Benefits of creating your account:</p>
+        <ul class="promo-features">
+          <li>✓ Apply to multiple Master's programs</li>
+          <li>✓ Save and track your applications</li>
+          <li>✓ Upload supporting documents</li>
+          <li>✓ Receive application updates</li>
+          <li>✓ Access to program resources</li>
+        </ul>
+        <div class="promo-footer">
+          <div class="success-stats">
+            <div class="stat-item">
+              <span class="stat-value">75%</span>
+              <span class="stat-label">Acceptance Rate</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">15+</span>
+              <span class="stat-label">Programs Available</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

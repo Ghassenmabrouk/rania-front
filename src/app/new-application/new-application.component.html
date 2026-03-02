@@ -1,0 +1,38 @@
+<div class="new-app-container">
+  <h2>New Application</h2>
+  <form (ngSubmit)="submitApplication()" #appForm="ngForm">
+    <div class="form-group">
+      <label for="program">Master Program:</label>
+      <select
+        id="program"
+        name="programId"
+        [(ngModel)]="formData.programId"
+        required
+      >
+        <option value="" disabled>Select a program</option>
+        <option *ngFor="let prog of programs" [value]="prog._id">
+          {{ prog.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description / Motivation:</label>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="formData.description"
+        rows="5"
+        required
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!appForm.form.valid"
+    >
+      Submit Application
+    </button>
+  </form>
+</div>

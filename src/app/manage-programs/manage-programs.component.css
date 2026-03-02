@@ -1,0 +1,22 @@
+/* manager programs styles matching homepage look */
+.page-container {
+  padding: 20px 0;
+}
+
+.page-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.page-header h2 {
+  color: #123777;
+}
+
+.action-button {
+  margin-bottom: 15px;
+}
+
+/* enhance table styles (global styles already applied) */
+.table {
+  margin-top: 15px;
+}
+

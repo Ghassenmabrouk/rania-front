@@ -1,0 +1,152 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Applicant Dashboard</h1>
+    <p class="welcome-text">Welcome, <strong>{{ username || 'Applicant' }}</strong>!</p>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="stats-section">
+    <h2 class="section-title">Your Overview</h2>
+    <div class="cards-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📋</div>
+        <div class="stat-content">
+          <h3>Applications Submitted</h3>
+          <p class="stat-number">{{ totalApplications }}</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-content">
+          <h3>Accepted</h3>
+          <p class="stat-number" style="color: #27ae60;">{{ acceptedApplications }}</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-content">
+          <h3>Under Review</h3>
+          <p class="stat-number" style="color: #f39c12;">{{ underReviewCount }}</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📁</div>
+        <div class="stat-content">
+          <h3>Documents</h3>
+          <p class="stat-number">{{ totalDocuments }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Cards -->
+  <div class="action-section">
+    <h2 class="section-title">Quick Actions</h2>
+    <div class="cards-grid">
+      <!-- Profile Summary Card -->
+      <div class="action-card">
+        <div class="card-header">
+          <h3>👤 Profile Summary</h3>
+        </div>
+        <div class="card-body">
+          <p>View and update your personal information</p>
+          <div class="profile-info">
+            <div class="info-item">
+              <span class="label">Email:</span>
+              <span class="value">{{ userEmail }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Phone:</span>
+              <span class="value">{{ userPhone || 'Not set' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Status:</span>
+              <span class="value badge">Active</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="editProfile()">Edit Profile</button>
+      </div>
+
+      <!-- Submit New Application Card -->
+      <div class="action-card">
+        <div class="card-header">
+          <h3>📝 Submit Application</h3>
+        </div>
+        <div class="card-body">
+          <p>Apply for a Master's program</p>
+          <ul class="card-features">
+            <li>✓ Select Master program</li>
+            <li>✓ Fill application form</li>
+            <li>✓ Upload documents</li>
+            <li>✓ Submit online</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" (click)="router.navigate(['/new-application'])">Start New Application</button>
+      </div>
+
+      <!-- Browse Programs Card -->
+      <div class="action-card">
+        <div class="card-header">
+          <h3>🎓 Master Programs</h3>
+        </div>
+        <div class="card-body">
+          <p>Explore available Master's programs</p>
+          <div class="programs-preview">
+            <div class="program-item" *ngFor="let program of availablePrograms | slice:0:3">
+              <span class="program-name">📌 {{ program.name }}</span>
+            </div>
+            <p class="more-text" *ngIf="availablePrograms.length > 3">+ {{ availablePrograms.length - 3 }} more programs</p>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="viewAllPrograms()">View All Programs</button>
+      </div>
+
+      <!-- Upload Documents Card -->
+      <div class="action-card">
+        <div class="card-header">
+          <h3>📄 Documents</h3>
+        </div>
+        <div class="card-body">
+          <p>Upload and manage your documents</p>
+          <div class="document-info">
+            <p class="doc-requirement">Required documents:</p>
+            <ul class="doc-list">
+              <li>✓ Bachelor's degree certificate</li>
+              <li>✓ Transcripts</li>
+              <li>✓ ID/Passport copy</li>
+              <li>✓ Motivation letter</li>
+            </ul>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="uploadDocuments()">Upload Documents</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Applications Status Section -->
+  <div class="applications-section">
+    <h2 class="section-title">Your Applications</h2>
+    <div class="applications-list">
+      <div class="application-item" *ngFor="let app of applications">
+        <div class="app-status" [ngClass]="'status-' + app.status.toLowerCase()">
+          <span class="status-badge">{{ app.status }}</span>
+        </div>
+        <div class="app-details">
+          <h4>{{ app.programName }}</h4>
+          <p class="app-date">Submitted: {{ app.submissionDate | date:'short' }}</p>
+          <p class="app-description">{{ app.description }}</p>
+        </div>
+        <div class="app-actions">
+          <button class="btn btn-small btn-info" (click)="viewApplicationDetails(app._id)">View Details</button>
+          <button class="btn btn-small btn-secondary" *ngIf="app.status === 'Pending'" (click)="editApplication(app._id)">Edit</button>
+          <button class="btn btn-small btn-danger" *ngIf="app.status === 'Pending'" (click)="deleteApplication(app._id)">Delete</button>
+        </div>
+      </div>
+
+      <div class="no-applications" *ngIf="applications.length === 0">
+        <p>No applications yet. Start by submitting a new application!</p>
+      </div>
+    </div>
+  </div>
+</div>

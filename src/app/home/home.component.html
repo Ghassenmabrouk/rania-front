@@ -1,0 +1,240 @@
+<div class="home-container">
+  <header class="header">
+    <nav class="navbar">
+      <div class="nav-brand">
+        <h1>Master's Application Portal</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#process">Application Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a routerLink="/login" class="btn btn-outline">Login</a>
+        <a routerLink="/register" class="btn btn-primary">Apply Now</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-slider">
+        <div class="hero-slide" *ngFor="let image of heroImages; let i = index"
+             [class.active]="i === currentImageIndex"
+             [style.background-image]="'url(' + image + ')'">
+        </div>
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <h2>Master's Degree Application Portal</h2>
+        <p>Join our prestigious academic community and advance your career with world-class education</p>
+        <div class="hero-actions">
+          <a routerLink="/register" class="btn btn-large btn-white">Start Your Application</a>
+          <a href="#programs" class="btn btn-large btn-outline-white">Explore Programs</a>
+        </div>
+      </div>
+      <div class="hero-indicators">
+        <span *ngFor="let image of heroImages; let i = index"
+              class="indicator"
+              [class.active]="i === currentImageIndex"
+              (click)="setCurrentImage(i)"></span>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="statistics-section">
+      <div class="section-header">
+        <h2>Application Overview</h2>
+        <p *ngIf="deadlines">Academic Year {{ deadlines.academicYear }}</p>
+      </div>
+
+      <div class="stats-grid" *ngIf="!loading && overviewStats && applicationStats">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ overviewStats.totalApplicants }}</h3>
+            <p class="stat-label">Total Applicants</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">📚</div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ applicationStats.availablePrograms }}</h3>
+            <p class="stat-label">Master Programs</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">✓</div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ applicationStats.acceptanceRate }}%</h3>
+            <p class="stat-label">Acceptance Rate</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🎓</div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ applicationStats.acceptedApplications }}</h3>
+            <p class="stat-label">Students Accepted</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="deadline-cards" *ngIf="deadlines">
+        <div class="deadline-card important">
+          <h3>Application Deadline</h3>
+          <p class="deadline-date">{{ formatDate(deadlines.masterApplicationDeadline) }}</p>
+          <p class="deadline-description">Final date to submit your Master's program application</p>
+        </div>
+
+        <div class="deadline-card">
+          <h3>Applications Open</h3>
+          <p class="deadline-date">{{ formatDate(deadlines.masterApplicationStartDate) }}</p>
+          <p class="deadline-description">Start date for Master's program applications</p>
+        </div>
+
+        <div class="deadline-card">
+          <h3>Semester Begins</h3>
+          <p class="deadline-date">{{ formatDate(deadlines.semesterStartDate) }}</p>
+          <p class="deadline-description">First day of the academic semester</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="features" id="programs">
+      <h2>Why Choose Our Master's Programs</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <h3>Excellence in Education</h3>
+          <p>World-renowned faculty and cutting-edge research opportunities</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h3>Global Recognition</h3>
+          <p>Internationally accredited programs recognized worldwide</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💼</div>
+          <h3>Career Advancement</h3>
+          <p>Strong industry connections and excellent job placement rates</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3>Collaborative Community</h3>
+          <p>Network with talented peers and industry professionals</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Application Process Section -->
+    <section class="process-section" id="process">
+      <h2>Application Process</h2>
+      <p class="section-description">Follow these simple steps to apply for our Master's programs</p>
+
+      <div class="process-timeline">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Register Account</h3>
+            <p>Create your account in our application portal</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Submit Application</h3>
+            <p>Complete the online application form with your details</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Upload Documents</h3>
+            <p>Submit required documents and transcripts</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Track Status</h3>
+            <p>Monitor your application status in your dashboard</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Receive Decision</h3>
+            <p>Get notified about your admission status</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <a routerLink="/register" class="btn btn-primary btn-large">Begin Your Application</a>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <h2>Get In Touch</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">📧</div>
+          <h3>Email</h3>
+          <p>admissions@university.edu</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <h3>Phone</h3>
+          <p>+1 (555) 123-4567</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <h3>Address</h3>
+          <p>123 University Avenue, City, Country</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">🕐</div>
+          <h3>Office Hours</h3>
+          <p>Mon-Fri: 9:00 AM - 5:00 PM</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>Leading institution for graduate education and research excellence</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="/register">Apply</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>admissions@university.edu</p>
+        <p>+1 (555) 123-4567</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Master's Application Portal. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

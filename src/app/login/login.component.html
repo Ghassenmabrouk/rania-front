@@ -1,0 +1,53 @@
+<div class="login-container">
+  <div class="login-split-box">
+    <div class="login-form-section">
+      <div class="form-content">
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Sign in to access your application portal</p>
+
+        <form class="login-form" (ngSubmit)="login()">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-with-icon">
+              <span class="input-icon">✉</span>
+              <input type="email" id="email" placeholder="Enter your email" [(ngModel)]="email" name="email" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-with-icon">
+              <span class="input-icon">🔒</span>
+              <input type="password" id="password" placeholder="Enter your password" [(ngModel)]="password" name="password" required>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <a href="#" class="forgot-password">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn-login">Sign In</button>
+        </form>
+
+        <p class="signup-link">Don't have an account? <a routerLink="/register">Create Account</a></p>
+      </div>
+    </div>
+
+    <div class="login-promo-section">
+      <div class="promo-content">
+        <div class="promo-icon">🎓</div>
+        <h3>Master's Application Portal</h3>
+        <p>Access your application dashboard to:</p>
+        <ul class="promo-features">
+          <li>✓ Track your application status</li>
+          <li>✓ Submit required documents</li>
+          <li>✓ View program information</li>
+          <li>✓ Communicate with admissions</li>
+        </ul>
+        <div class="promo-footer">
+          <p class="deadline-reminder">Application Deadline: June 30, 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

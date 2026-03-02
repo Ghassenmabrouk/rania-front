@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* shared layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s ease;
+}
+.btn-primary {
+  background-color: #123777;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #0f3266;
+}
+.btn-outline {
+  background-color: transparent;
+  color: #123777;
+  border: 2px solid #123777;
+}
+.btn-outline:hover {
+  background-color: #123777;
+  color: #fff;
+}
+
+/* tables */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th,
+.table td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* page header */
+.page-header h2 {
+  color: #123777;
+  margin-bottom: 1rem;
+}
+

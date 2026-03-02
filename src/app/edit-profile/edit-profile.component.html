@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="edit-profile-con">
+
+        <label for="">username</label>
+        <input #usernameinput type="username" value="{{userInfos.username}}">
+        
+     
+        <label for="">email</label>
+        <input #emailinput type="email" value="{{userInfos.email}}" >
+
+        
+        <p  [ngStyle]="{'color':alert=='success' ? 'green' : 'red'}" class="message">{{message}}</p>
+        <div class="btns">
+            <button class="save" (click)="save(usernameinput.value,emailinput.value)" >save</button>
+        <button class="cancel" (click)="hideTheEditUi()">cancel</button>
+        </div>
+        
+
+    
+    </div>
+
+    
+</body>
+</html>
