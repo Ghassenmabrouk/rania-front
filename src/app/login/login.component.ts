@@ -1,7 +1,8 @@
 
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,27 +12,38 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email = '';
   password = '';
+  loading = false;
+  showPassword = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
   login() {
-    if (!this.email || !this.password) return;
+    if (!this.email || !this.password) {
+      Swal.fire('Error', 'Please enter your email and password', 'error');
+      return;
+    }
 
-    this.http.post('http://localhost:3000/api/auth/login', { email: this.email, password: this.password })
-      .subscribe((res: any) => {
-        const user = res.user || res;
-        const role = user?.role || 'user';
-        const username = user?.username || user?.name || '';
-        const userId = user?._id || '';
-        const email = user?.email || '';
+    this.loading = true;
 
-        if (username) localStorage.setItem('username', username);
-        if (userId) localStorage.setItem('userId', userId);
-        if (email) localStorage.setItem('email', email);
-
-        if (role === 'admin') this.router.navigate(['/dashboard/admin']);
-        else if (role === 'manager') this.router.navigate(['/dashboard/manager']);
-        else this.router.navigate(['/dashboard/applicant']);
-      });
+    this.authService.login(this.email, this.password).subscribe({
+      next: (user) => {
+        this.loading = false;
+        Swal.fire('Success', 'Login successful!', 'success').then(() => {
+          if (user.role === 'admin') this.router.navigate(['/dashboard/admin']);
+          else if (user.role === 'manager') this.router.navigate(['/dashboard/manager']);
+          else this.router.navigate(['/dashboard/applicant']);
+        });
+      },
+      error: (error: any) => {
+        this.loading = false;
+        console.error('Login error:', error);
+        const errorMessage = error?.error?.message || 'Invalid email or password';
+        Swal.fire('Login Failed', errorMessage, 'error');
+      }
+    });
   }
 }

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './services/auth.interceptor';
 import { RegisterComponent } from './register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,9 @@ import { ProgramsComponent } from './programs/programs.component';
 import { ManageApplicantsComponent } from './manage-applicants/manage-applicants.component';
 import { ManageProgramsComponent } from './manage-programs/manage-programs.component';
 import { ReviewApplicationsComponent } from './review-applications/review-applications.component';
+import { EditProfileAdminComponent } from './edit-profile-admin/edit-profile-admin.component';
+import { ProgramsListComponent } from './programs-list/programs-list.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +33,15 @@ import { ReviewApplicationsComponent } from './review-applications/review-applic
     AdminDashboardComponent,
     ManagerDashboardComponent,
     EditProfileComponent,
+    EditProfileAdminComponent,
     NewApplicationComponent,
     UploadDocumentsComponent,
     ProgramsComponent,
     ManageApplicantsComponent,
     ManageProgramsComponent,
-    ReviewApplicationsComponent
+    ReviewApplicationsComponent,
+    ProgramsListComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +50,13 @@ import { ReviewApplicationsComponent } from './review-applications/review-applic
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

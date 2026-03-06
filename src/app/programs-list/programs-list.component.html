@@ -1,0 +1,111 @@
+<div class="programs-container">
+  <div class="page-header">
+    <button class="back-btn" (click)="goBack()">← Back to Dashboard</button>
+    <h1>Master Programs</h1>
+    <p>Explore available Master's programs and apply</p>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Search programs..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+        class="search-input">
+      <span class="search-icon">🔍</span>
+    </div>
+
+    <select [(ngModel)]="selectedDepartment" (change)="onDepartmentChange()" class="department-filter">
+      <option value="All">All Departments</option>
+      <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+    </select>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <p>Loading programs...</p>
+  </div>
+
+  <!-- Programs Grid -->
+  <div *ngIf="!loading && filteredPrograms.length > 0" class="programs-grid">
+    <div *ngFor="let program of filteredPrograms" class="program-card" [class.inactive]="!program.active">
+      <div class="program-header">
+        <div class="program-title">
+          <h3>{{ program.name }}</h3>
+          <span class="department-badge">{{ program.department }}</span>
+        </div>
+        <div class="program-status" [style.color]="getStatusColor(program)">
+          <span *ngIf="program.active; else inactiveStatus">
+            {{ getAvailableSpots(program) }} spots left
+          </span>
+          <ng-template #inactiveStatus>
+            <span style="color: #6c757d;">Inactive</span>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="program-details">
+        <div class="detail-item" *ngIf="program.duration">
+          <span class="detail-label">Duration:</span>
+          <span class="detail-value">{{ program.duration }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Capacity:</span>
+          <span class="detail-value">{{ program.capacity }} students</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Enrolled:</span>
+          <span class="detail-value">{{ program.enrolled }} students</span>
+        </div>
+      </div>
+
+      <!-- Enrollment Progress Bar -->
+      <div class="enrollment-progress">
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            [style.width.%]="getEnrollmentPercentage(program)"
+            [style.background-color]="getStatusColor(program)">
+          </div>
+        </div>
+        <span class="progress-text">{{ getEnrollmentPercentage(program) }}% full</span>
+      </div>
+
+      <!-- Description -->
+      <div class="program-description" *ngIf="program.description">
+        <p>{{ program.description }}</p>
+      </div>
+
+      <!-- Requirements -->
+      <div class="program-requirements" *ngIf="program.requirements">
+        <h4>Requirements:</h4>
+        <p>{{ program.requirements }}</p>
+      </div>
+
+      <!-- Action Button -->
+      <div class="program-actions">
+        <button
+          class="apply-btn"
+          [disabled]="!program.active || getAvailableSpots(program) <= 0"
+          (click)="applyForProgram(program)">
+          <span *ngIf="program.active && getAvailableSpots(program) > 0">Apply Now</span>
+          <span *ngIf="!program.active">Program Inactive</span>
+          <span *ngIf="program.active && getAvailableSpots(program) <= 0">Program Full</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && filteredPrograms.length === 0 && programs.length > 0" class="empty-state">
+    <p>No programs match your search criteria.</p>
+  </div>
+
+  <div *ngIf="!loading && programs.length === 0" class="empty-state">
+    <p>No programs available at the moment.</p>
+  </div>
+</div>

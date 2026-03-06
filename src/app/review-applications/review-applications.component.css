@@ -1,2 +1,328 @@
-/* review applications placeholder styles */
-.container { padding: 20px; }
+.page-container {
+  padding: 20px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 30px;
+  text-align: left;
+  border-bottom: 2px solid #123777;
+  padding-bottom: 15px;
+}
+
+.page-header h2 {
+  color: #123777;
+  font-size: 28px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.search-section {
+  margin-bottom: 25px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #123777;
+  box-shadow: 0 0 0 3px rgba(18, 55, 119, 0.1);
+}
+
+.tabs-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  bottom: -10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-button:hover {
+  color: #123777;
+}
+
+.tab-button.active {
+  color: #123777;
+  border-bottom-color: #123777;
+}
+
+.tab-count {
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tab-button.active .tab-count {
+  background: #123777;
+  color: white;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.applications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 20px;
+}
+
+.application-card {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.application-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.application-card.status-accepted {
+  border-left: 4px solid #28a745;
+}
+
+.application-card.status-rejected {
+  border-left: 4px solid #dc3545;
+  opacity: 0.85;
+}
+
+.application-card.status-under-review {
+  border-left: 4px solid #0066cc;
+}
+
+.application-card.status-pending {
+  border-left: 4px solid #f39c12;
+}
+
+.card-header {
+  padding: 15px;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.applicant-info {
+  flex: 1;
+}
+
+.applicant-name {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #123777;
+}
+
+.applicant-email {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.card-body {
+  padding: 15px;
+  background: #f8f9fa;
+}
+
+.info-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.info-row .label {
+  font-weight: 600;
+  color: #333;
+  min-width: 130px;
+}
+
+.info-row .value {
+  color: #666;
+  flex: 1;
+}
+
+.card-actions {
+  padding: 15px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: white;
+}
+
+.btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-view {
+  border-color: #0066cc;
+  color: #0066cc;
+}
+
+.btn-view:hover:not(:disabled) {
+  background: rgba(0, 102, 204, 0.05);
+  border-color: #0066cc;
+}
+
+.btn-review {
+  border-color: #666;
+  color: #666;
+}
+
+.btn-review:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: #123777;
+  color: #123777;
+}
+
+.btn-accept {
+  border-color: #28a745;
+  color: #28a745;
+}
+
+.btn-accept:hover:not(:disabled) {
+  background: rgba(40, 167, 69, 0.05);
+  border-color: #28a745;
+}
+
+.btn-reject {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-reject:hover:not(:disabled) {
+  background: rgba(220, 53, 69, 0.05);
+  border-color: #dc3545;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px dashed #ddd;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 15px;
+  }
+
+  .page-header {
+    margin-bottom: 20px;
+  }
+
+  .page-header h2 {
+    font-size: 22px;
+  }
+
+  .tabs-section {
+    gap: 8px;
+  }
+
+  .tab-button {
+    padding: 8px 15px;
+    font-size: 13px;
+  }
+
+  .applications-list {
+    grid-template-columns: 1fr;
+  }
+
+  .card-header {
+    flex-direction: column;
+  }
+
+  .card-actions {
+    gap: 5px;
+  }
+
+  .btn {
+    min-width: 100%;
+    font-size: 11px;
+  }
+
+  .info-row {
+    flex-direction: column;
+  }
+
+  .info-row .label {
+    min-width: auto;
+  }
+}

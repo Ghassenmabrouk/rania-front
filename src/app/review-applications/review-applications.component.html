@@ -1,4 +1,95 @@
-<div class="container">
-  <h2>Review Applications</h2>
-  <p>Manager will review and process submitted applications here.</p>
+<div class="container page-container">
+  <div class="page-header">
+    <h2>Review Applications</h2>
+  </div>
+
+  <div class="search-section">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search by applicant name, email, or program..."
+      [(ngModel)]="searchTerm"
+      (input)="onSearchChange()">
+  </div>
+
+  <div class="tabs-section">
+    <button
+      *ngFor="let tab of tabs"
+      class="tab-button"
+      [ngClass]="{ active: activeTab === tab.value }"
+      (click)="switchTab(tab.value)">
+      {{ tab.label }}
+      <span class="tab-count">{{ getTabCount(tab.value) }}</span>
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">
+    <p>Loading applications…</p>
+  </div>
+
+  <div *ngIf="!loading && filteredApplications.length > 0" class="applications-list">
+    <div *ngFor="let application of filteredApplications" class="application-card" [ngClass]="'status-' + application.status.toLowerCase()">
+      <div class="card-header">
+        <div class="applicant-info">
+          <h3 class="applicant-name">{{ application.applicantName }}</h3>
+          <p class="applicant-email">{{ application.applicantEmail }}</p>
+        </div>
+        <span
+          class="status-badge"
+          [style.backgroundColor]="getStatusBgColor(application.status)"
+          [style.color]="getStatusTextColor(application.status)">
+          {{ application.status }}
+        </span>
+      </div>
+
+      <div class="card-body">
+        <div class="info-row">
+          <span class="label">Program:</span>
+          <span class="value">{{ application.programName }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Submission Date:</span>
+          <span class="value">{{ application.submissionDate }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Review Notes:</span>
+          <span class="value">{{ application.reviewNotes }}</span>
+        </div>
+        <div class="info-row" *ngIf="application.decisionReason">
+          <span class="label">Decision Reason:</span>
+          <span class="value">{{ application.decisionReason }}</span>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-view" (click)="viewApplicationDetails(application)">👁️ View Details</button>
+        <button
+          class="btn btn-review"
+          (click)="moveToReview(application)"
+          [disabled]="application.status === 'Under Review'">
+          📋 Move to Review
+        </button>
+        <button
+          class="btn btn-accept"
+          (click)="acceptApplication(application)"
+          [disabled]="application.status === 'Accepted'">
+          ✓ Accept
+        </button>
+        <button
+          class="btn btn-reject"
+          (click)="rejectApplication(application)"
+          [disabled]="application.status === 'Rejected'">
+          ✗ Reject
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && filteredApplications.length === 0 && allApplications.length > 0" class="empty-state">
+    <p>No applications match your search criteria.</p>
+  </div>
+
+  <div *ngIf="!loading && allApplications.length === 0" class="empty-state">
+    <p>No applications to review.</p>
+  </div>
 </div>

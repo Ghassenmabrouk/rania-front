@@ -1,0 +1,33 @@
+<header class="app-header">
+  <div class="header-content">
+    <div class="logo-section" (click)="goHome()">
+      <h1 class="app-title">Master's Application Portal</h1>
+    </div>
+
+    <div class="user-section">
+      <button class="home-btn" (click)="goHome()" title="Go to Home">
+        🏠 Home
+      </button>
+
+      <div class="user-menu" *ngIf="isLoggedIn">
+        <div class="welcome-text">
+          Welcome, <span class="username" (click)="toggleUserMenu()">{{ username }}</span>
+        </div>
+
+        <div class="user-dropdown" [class.show]="showUserMenu">
+          <button class="dropdown-item" (click)="goToEditProfile()">
+            👤 Edit Profile
+          </button>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item logout-btn" (click)="logout()">
+            🚪 Logout
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-section" *ngIf="!isLoggedIn">
+        <button class="login-btn" (click)="goToLogin()">Login</button>
+      </div>
+    </div>
+  </div>
+</header>

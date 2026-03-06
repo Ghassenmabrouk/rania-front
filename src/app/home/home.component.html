@@ -11,8 +11,9 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
-        <a routerLink="/login" class="btn btn-outline">Login</a>
-        <a routerLink="/register" class="btn btn-primary">Apply Now</a>
+        <a *ngIf="!isLoggedIn" routerLink="/login" class="btn btn-outline">Login</a>
+        <a *ngIf="!isLoggedIn" routerLink="/register" class="btn btn-primary">Apply Now</a>
+        <a *ngIf="isLoggedIn" (click)="goToDashboard()" class="btn btn-primary">Go Dashboard</a>
       </div>
     </nav>
   </header>
@@ -191,22 +192,22 @@
         <div class="contact-card">
           <div class="contact-icon">📧</div>
           <h3>Email</h3>
-          <p>admissions@university.edu</p>
+          <p>webmaster@isaeg.rnu.tn</p>
         </div>
         <div class="contact-card">
           <div class="contact-icon">📞</div>
           <h3>Phone</h3>
-          <p>+1 (555) 123-4567</p>
+          <p>+216 76 211 440</p>
         </div>
         <div class="contact-card">
           <div class="contact-icon">📍</div>
           <h3>Address</h3>
-          <p>123 University Avenue, City, Country</p>
+          <p>Rue Houssine Ben Kaddour,<br>Sidi Ahmed Zarroug,<br>2112 Gafsa, Tunisia</p>
         </div>
         <div class="contact-card">
           <div class="contact-icon">🕐</div>
           <h3>Office Hours</h3>
-          <p>Mon-Fri: 9:00 AM - 5:00 PM</p>
+          <p>Mon – Fri: 08:00 AM – 05:00 PM</p>
         </div>
       </div>
     </section>
@@ -229,8 +230,8 @@
       </div>
       <div class="footer-section">
         <h4>Contact</h4>
-        <p>admissions@university.edu</p>
-        <p>+1 (555) 123-4567</p>
+        <p>webmaster@isaeg.rnu.tn</p>
+        <p>+216 76 211 440</p>
       </div>
     </div>
     <div class="footer-bottom">

@@ -1,38 +1,158 @@
 <div class="new-app-container">
-  <h2>New Application</h2>
-  <form (ngSubmit)="submitApplication()" #appForm="ngForm">
-    <div class="form-group">
-      <label for="program">Master Program:</label>
-      <select
-        id="program"
-        name="programId"
-        [(ngModel)]="formData.programId"
-        required
-      >
-        <option value="" disabled>Select a program</option>
-        <option *ngFor="let prog of programs" [value]="prog._id">
-          {{ prog.name }}
-        </option>
-      </select>
+  <button class="back-arrow" (click)="goBackToDashboard()" title="Back to Dashboard">
+    ← Back to Dashboard
+  </button>
+
+  <div class="app-header">
+    <h2>Master's Program Application</h2>
+    <p class="subtitle">Please fill out all required information accurately</p>
+  </div>
+
+  <form (ngSubmit)="submitApplication()" #appForm="ngForm" class="application-form">
+
+    <div class="form-section">
+      <h3 class="section-title">1️⃣ Personal Information</h3>
+      <p class="section-note">Auto-filled from your profile. Update your profile if needed.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName">Full Name (as in CIN) <span class="required">*</span></label>
+          <input type="text" id="fullName" [(ngModel)]="fullName" name="fullName" required readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="cinNumber">CIN Number <span class="required">*</span></label>
+          <input type="text" id="cinNumber" [(ngModel)]="cinNumber" name="cinNumber" placeholder="Enter CIN number" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="dateOfBirth">Date of Birth <span class="required">*</span></label>
+          <input type="date" id="dateOfBirth" [(ngModel)]="dateOfBirth" name="dateOfBirth" required>
+        </div>
+
+        <div class="form-group">
+          <label for="placeOfBirth">Place of Birth <span class="required">*</span></label>
+          <input type="text" id="placeOfBirth" [(ngModel)]="placeOfBirth" name="placeOfBirth" placeholder="City, Country" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nationality">Nationality <span class="required">*</span></label>
+          <input type="text" id="nationality" [(ngModel)]="nationality" name="nationality" required readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number <span class="required">*</span></label>
+          <input type="tel" id="phone" [(ngModel)]="phone" name="phone" required readonly>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="address">Address <span class="required">*</span></label>
+          <input type="text" id="address" [(ngModel)]="address" name="address" required readonly>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="email">Email <span class="required">*</span></label>
+          <input type="email" id="email" [(ngModel)]="email" name="email" required readonly>
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="description">Description / Motivation:</label>
-      <textarea
-        id="description"
-        name="description"
-        [(ngModel)]="formData.description"
-        rows="5"
-        required
-      ></textarea>
+    <div class="form-section">
+      <h3 class="section-title">🎓 2️⃣ Academic Background</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="baccalaureateYear">Baccalaureate Year <span class="required">*</span></label>
+          <input type="number" id="baccalaureateYear" [(ngModel)]="baccalaureateYear" name="baccalaureateYear" placeholder="e.g., 2018" min="1990" max="2030" required>
+        </div>
+
+        <div class="form-group">
+          <label for="baccalaureateSection">Section <span class="required">*</span></label>
+          <select id="baccalaureateSection" [(ngModel)]="baccalaureateSection" name="baccalaureateSection" required>
+            <option value="" disabled selected>Select section</option>
+            <option value="Sciences Expérimentales">Sciences Expérimentales</option>
+            <option value="Mathématiques">Mathématiques</option>
+            <option value="Economie et Gestion">Economie et Gestion</option>
+            <option value="Sciences Techniques">Sciences Techniques</option>
+            <option value="Lettres">Lettres</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="baccalaureateAverage">Average <span class="required">*</span></label>
+          <input type="number" id="baccalaureateAverage" [(ngModel)]="baccalaureateAverage" name="baccalaureateAverage" placeholder="e.g., 15.50" step="0.01" min="10" max="20" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="bachelorSpecialty">Bachelor (Licence) Specialty <span class="required">*</span></label>
+          <input type="text" id="bachelorSpecialty" [(ngModel)]="bachelorSpecialty" name="bachelorSpecialty" placeholder="e.g., Business Administration" required>
+        </div>
+
+        <div class="form-group">
+          <label for="universityName">University Name <span class="required">*</span></label>
+          <input type="text" id="universityName" [(ngModel)]="universityName" name="universityName" placeholder="e.g., University of Gabès" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="graduationYear">Year of Graduation <span class="required">*</span></label>
+          <input type="number" id="graduationYear" [(ngModel)]="graduationYear" name="graduationYear" placeholder="e.g., 2022" min="1990" max="2030" required>
+        </div>
+
+        <div class="form-group">
+          <label for="finalAverage">Final Average (Moyenne Générale) <span class="required">*</span></label>
+          <input type="number" id="finalAverage" [(ngModel)]="finalAverage" name="finalAverage" placeholder="e.g., 14.50" step="0.01" min="10" max="20" required>
+        </div>
+      </div>
     </div>
 
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="!appForm.form.valid"
-    >
-      Submit Application
-    </button>
+    <div class="form-section">
+      <h3 class="section-title">📚 3️⃣ Master Program Choice</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="masterSpecialty">Master Specialty <span class="required">*</span></label>
+          <select id="masterSpecialty" [(ngModel)]="masterSpecialty" name="masterSpecialty" required>
+            <option value="" disabled selected>Select specialty</option>
+            <option *ngFor="let program of masterPrograms" [value]="program">{{ program }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="masterType">Type <span class="required">*</span></label>
+          <select id="masterType" [(ngModel)]="masterType" name="masterType" required>
+            <option value="" disabled selected>Select type</option>
+            <option value="Recherche">Recherche</option>
+            <option value="Professionnel">Professionnel</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section signature-section">
+      <div class="signature-checkbox">
+        <input type="checkbox" id="signature" [(ngModel)]="signatureConfirmed" name="signature" required>
+        <label for="signature">
+          I hereby confirm that all information provided above is accurate and complete. I understand that any false information may result in the rejection of my application.
+        </label>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-cancel" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn btn-submit">Submit Application</button>
+    </div>
   </form>
 </div>

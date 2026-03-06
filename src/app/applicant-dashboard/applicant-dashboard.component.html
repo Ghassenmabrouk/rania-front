@@ -1,7 +1,8 @@
+<app-header></app-header>
+
 <div class="dashboard-container">
-  <div class="dashboard-header">
+  <div class="dashboard-header" style="text-align: center;">
     <h1>Applicant Dashboard</h1>
-    <p class="welcome-text">Welcome, <strong>{{ username || 'Applicant' }}</strong>!</p>
   </div>
 
   <!-- Quick Stats -->
@@ -65,7 +66,7 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary" (click)="editProfile()">Edit Profile</button>
+        <button class="btn btn-primary" (click)="editProfile()">View Profile</button>
       </div>
 
       <!-- Submit New Application Card -->
@@ -102,25 +103,6 @@
         <button class="btn btn-primary" (click)="viewAllPrograms()">View All Programs</button>
       </div>
 
-      <!-- Upload Documents Card -->
-      <div class="action-card">
-        <div class="card-header">
-          <h3>📄 Documents</h3>
-        </div>
-        <div class="card-body">
-          <p>Upload and manage your documents</p>
-          <div class="document-info">
-            <p class="doc-requirement">Required documents:</p>
-            <ul class="doc-list">
-              <li>✓ Bachelor's degree certificate</li>
-              <li>✓ Transcripts</li>
-              <li>✓ ID/Passport copy</li>
-              <li>✓ Motivation letter</li>
-            </ul>
-          </div>
-        </div>
-        <button class="btn btn-primary" (click)="uploadDocuments()">Upload Documents</button>
-      </div>
     </div>
   </div>
 

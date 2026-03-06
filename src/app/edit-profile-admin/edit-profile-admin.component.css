@@ -1,4 +1,4 @@
-.new-app-container {
+.edit-profile-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
   background-color: #f5f5f5;
@@ -31,13 +31,59 @@
   box-shadow: 0 4px 12px rgba(18, 55, 119, 0.3);
 }
 
-.app-header {
-  text-align: center;
-  margin-bottom: 3rem;
-  margin-top: 3rem;
+.edit-mode-toggle {
+  margin-bottom: 2rem;
+  text-align: right;
 }
 
-.app-header h2 {
+.btn-edit {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.static-image-display {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.static-image-display img {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.no-document {
+  background: #f9f9f9;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.no-document p {
+  margin: 0;
+  color: #999;
+  font-style: italic;
+}
+
+.edit-profile-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.edit-profile-header h1 {
   font-size: 2.5rem;
   color: #123777;
   margin-bottom: 0.5rem;
@@ -47,12 +93,14 @@
 .subtitle {
   color: #666;
   font-size: 1.1rem;
-  margin-top: 0.5rem;
 }
 
-.application-form {
-  max-width: 1000px;
+.profile-content {
+  max-width: 900px;
   margin: 0 auto;
+}
+
+.profile-form {
   background: white;
   border-radius: 12px;
   padding: 3rem;
@@ -72,15 +120,8 @@
 .section-title {
   font-size: 1.5rem;
   color: #123777;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.section-note {
-  color: #666;
-  font-size: 0.9rem;
-  font-style: italic;
   margin-bottom: 1.5rem;
+  font-weight: 600;
 }
 
 .form-row {
@@ -90,16 +131,8 @@
   margin-bottom: 1.5rem;
 }
 
-.form-row:has(.full-width) {
-  grid-template-columns: 1fr;
-}
-
 .form-group {
-  margin-bottom: 0;
-}
-
-.form-group.full-width {
-  grid-column: 1 / -1;
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
@@ -115,28 +148,42 @@
   margin-left: 0.25rem;
 }
 
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 18px;
+  font-size: 18px;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .form-group input,
-.form-group select,
-.form-group textarea {
+.form-group select {
   width: 100%;
-  padding: 15px 18px;
+  padding: 15px 18px 15px 50px;
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
   transition: all 0.3s ease;
   font-family: inherit;
+  background-color: white;
 }
 
 .form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+.form-group select:focus {
   outline: none;
   border-color: #123777;
   box-shadow: 0 0 0 3px rgba(18, 55, 119, 0.1);
 }
 
-.form-group input:read-only {
+.form-group input:read-only,
+.form-group select:disabled {
   background-color: #f9f9f9;
   cursor: not-allowed;
   border-color: #e0e0e0;
@@ -228,36 +275,6 @@
   font-size: 1.1rem;
 }
 
-.signature-section {
-  background-color: #fff9e6;
-  border: 2px solid #ffd700;
-  border-radius: 8px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-}
-
-.signature-checkbox {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.signature-checkbox input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  margin-top: 2px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.signature-checkbox label {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.5;
-  cursor: pointer;
-  font-weight: 500;
-}
-
 .form-actions {
   display: flex;
   gap: 1rem;
@@ -289,15 +306,15 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.btn-submit {
-  background-color: #27ae60;
+.btn-save {
+  background-color: #123777;
   color: white;
 }
 
-.btn-submit:hover {
-  background-color: #229954;
+.btn-save:hover {
+  background-color: #0d2855;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+  box-shadow: 0 4px 12px rgba(18, 55, 119, 0.3);
 }
 
 .btn:active {
@@ -305,15 +322,15 @@
 }
 
 @media (max-width: 768px) {
-  .new-app-container {
+  .edit-profile-container {
     padding: 1rem;
   }
 
-  .app-header h2 {
+  .edit-profile-header h1 {
     font-size: 2rem;
   }
 
-  .application-form {
+  .profile-form {
     padding: 1.5rem;
   }
 

@@ -113,17 +113,7 @@ export class ApplicantDashboardComponent implements OnInit {
   }
 
   async viewAllPrograms(): Promise<void> {
-    const result = await Swal.fire({
-      title: 'View Programs',
-      text: 'Would you like to see all available programs?',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Show programs',
-      cancelButtonText: 'Later'
-    });
-    if (result.isConfirmed) {
-      this.router.navigate(['/programs']);
-    }
+    this.router.navigate(['/programs-list']);
   }
 
   deleteApplication(applicationId: string): void {

@@ -220,6 +220,24 @@
   display: block;
 }
 
+.password-toggle-btn {
+  position: absolute;
+  right: 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-btn:hover {
+  color: #123777;
+}
+
 @media (max-width: 768px) {
   .register-container {
     padding: 1rem;

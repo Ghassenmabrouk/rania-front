@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,7 +14,7 @@ export class AdminDashboardComponent implements OnInit {
   totalApplications: number = 0;
   totalMessages: number = 23;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.loadAdminData();
@@ -225,6 +226,20 @@ export class AdminDashboardComponent implements OnInit {
           confirmButtonColor: '#123777'
         });
       });
+    }
+  }
+
+  async editProfile(): Promise<void> {
+    const result = await Swal.fire({
+      title: 'Edit Profile',
+      text: 'Open profile editor?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    });
+    if (result.isConfirmed) {
+      this.router.navigate(['/edit-profile-admin']);
     }
   }
 }

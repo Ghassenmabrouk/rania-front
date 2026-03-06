@@ -65,13 +65,20 @@ export class ManagerDashboardComponent implements OnInit {
       next: (response) => {
         const applications = response.data || [];
         this.recentApplications = applications.slice(0, 5);
-        this.totalApplicants = applications.length;
+
+        // Get unique applicants count
+        const uniqueApplicants = new Set(applications.map((app: any) => app.applicantId?._id || app.applicantId));
+        this.totalApplicants = uniqueApplicants.size;
+
         this.pendingReviews = applications.filter((app: any) => app.status === 'Pending').length;
 
         const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
         this.approvedThisMonth = applications.filter((app: any) => {
           const appDate = new Date(app.submissionDate);
-          return app.status === 'Accepted' && appDate.getMonth() === currentMonth;
+          return app.status === 'Accepted' &&
+                 appDate.getMonth() === currentMonth &&
+                 appDate.getFullYear() === currentYear;
         }).length;
       },
       error: (error) => console.error('Error loading applications:', error)
@@ -89,95 +96,6 @@ export class ManagerDashboardComponent implements OnInit {
     });
     if (result.isConfirmed) {
       this.router.navigate(['/manage-applicants']);
-    }
-  }
-
-  async manageManagers(): Promise<void> {
-    const result = await Swal.fire({
-      title: 'Manager Management',
-      html: `
-        <div style="text-align: left;">
-          <p><strong>Manager Operations:</strong></p>
-          <ul style="list-style: none; padding: 0;">
-            <li>👤 View all managers</li>
-            <li>➕ Add new managers</li>
-            <li>✏️ Edit manager details</li>
-            <li>🗑️ Remove managers</li>
-          </ul>
-        </div>
-      `,
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonText: 'Add New Manager',
-      cancelButtonText: 'Close',
-      confirmButtonColor: '#123777',
-      cancelButtonColor: '#666'
-    });
-
-    if (result.isConfirmed) {
-      this.addNewManager();
-    }
-  }
-
-  async addNewManager(): Promise<void> {
-    const { value: formValues } = await Swal.fire({
-      title: 'Add New Manager',
-      html:
-        '<input id="swal-input1" class="swal2-input" placeholder="Username">' +
-        '<input id="swal-input2" class="swal2-input" placeholder="Email" type="email">' +
-        '<input id="swal-input3" class="swal2-input" placeholder="Password" type="password">',
-      focusConfirm: false,
-      showCancelButton: true,
-      confirmButtonColor: '#123777',
-      preConfirm: () => {
-        const username = (document.getElementById('swal-input1') as HTMLInputElement).value;
-        const email = (document.getElementById('swal-input2') as HTMLInputElement).value;
-        const password = (document.getElementById('swal-input3') as HTMLInputElement).value;
-
-        if (!username || !email || !password) {
-          Swal.showValidationMessage('Please fill all fields');
-          return null;
-        }
-
-        return { username, email, password };
-      }
-    });
-
-    if (formValues) {
-      Swal.fire({
-        title: 'Creating Manager...',
-        text: 'Please wait',
-        allowOutsideClick: false,
-        didOpen: () => {
-          Swal.showLoading();
-        }
-      });
-
-      this.http.post('http://localhost:3000/api/auth/register', {
-        username: formValues.username,
-        email: formValues.email,
-        password: formValues.password,
-        confirmPassword: formValues.password,
-        role: 'manager'
-      }).subscribe({
-        next: () => {
-          Swal.fire({
-            title: 'Success!',
-            text: 'Manager account created successfully',
-            icon: 'success',
-            confirmButtonColor: '#123777'
-          });
-          this.loadManagerData();
-        },
-        error: (error) => {
-          Swal.fire({
-            title: 'Error!',
-            text: error.error?.message || 'Failed to create manager account',
-            icon: 'error',
-            confirmButtonColor: '#123777'
-          });
-        }
-      });
     }
   }
 
@@ -219,7 +137,7 @@ export class ManagerDashboardComponent implements OnInit {
       cancelButtonText: 'No'
     });
     if (result.isConfirmed) {
-      this.router.navigate(['/edit-profile']);
+      this.router.navigate(['/edit-profile-admin']);
     }
   }
 

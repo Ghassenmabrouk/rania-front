@@ -1,7 +1,8 @@
+<app-header></app-header>
+
 <div class="dashboard-container">
-  <div class="dashboard-header">
-    <h1>Manager Dashboard</h1>
-    <p class="welcome-text">Welcome, <strong>{{ username || 'Manager' }}</strong>!</p>
+  <div class="dashboard-header" style="text-align: center;">
+    <h1>Management Dashboard</h1>
   </div>
 
   <!-- Quick Stats -->
@@ -43,22 +44,6 @@
   <div class="management-section">
     <h2 class="section-title">Management Tools</h2>
     <div class="cards-grid">
-      <!-- Manage Managers Card (also available to managers) -->
-      <div class="action-card">
-        <div class="card-header">
-          <h3>👤 Manage Managers</h3>
-        </div>
-        <div class="card-body">
-          <p>Create or edit other manager accounts</p>
-          <ul class="card-features">
-            <li>✓ Add new managers</li>
-            <li>✓ Update manager info</li>
-            <li>✓ Remove managers</li>
-          </ul>
-        </div>
-        <button class="btn btn-primary" (click)="manageManagers()">Manage Managers</button>
-      </div>
-
       <!-- Manage Students Card -->
       <div class="action-card">
         <div class="card-header">

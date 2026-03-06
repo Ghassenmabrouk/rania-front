@@ -1,31 +1,237 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="edit-profile-con">
+<div class="edit-profile-container">
+  <button class="back-arrow" (click)="goBackToDashboard()" title="Back to Dashboard">
+    ← Back to Dashboard
+  </button>
 
-        <label for="">username</label>
-        <input #usernameinput type="username" value="{{userInfos.username}}">
-        
-     
-        <label for="">email</label>
-        <input #emailinput type="email" value="{{userInfos.email}}" >
+  <div class="edit-profile-header">
+    <h1>My Profile</h1>
+    <p class="subtitle">View and update your personal information</p>
+  </div>
 
-        
-        <p  [ngStyle]="{'color':alert=='success' ? 'green' : 'red'}" class="message">{{message}}</p>
-        <div class="btns">
-            <button class="save" (click)="save(usernameinput.value,emailinput.value)" >save</button>
-        <button class="cancel" (click)="hideTheEditUi()">cancel</button>
+  <div class="profile-content">
+    <div class="profile-form">
+
+      <div class="edit-mode-toggle">
+        <button *ngIf="!isEditMode" class="btn btn-edit" (click)="toggleEditMode()">
+          ✏️ Edit Profile
+        </button>
+      </div>
+
+      <div class="form-section">
+        <h2 class="section-title">Personal Information</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="username">Full Name <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="input-icon">👤</span>
+              <input type="text" id="username" [(ngModel)]="username" placeholder="Enter your full name" [readonly]="!isEditMode" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="input-icon">📧</span>
+              <input type="email" id="email" [(ngModel)]="email" placeholder="your.email@example.com" [readonly]="!isEditMode" required>
+            </div>
+          </div>
         </div>
-        
 
-    
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <div class="input-with-icon">
+              <span class="input-icon">📱</span>
+              <input type="tel" id="phone" [(ngModel)]="phone" placeholder="+216 XX XXX XXX" [readonly]="!isEditMode">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <div class="input-with-icon">
+              <span class="input-icon">📅</span>
+              <input type="date" id="dateOfBirth" [(ngModel)]="dateOfBirth" [readonly]="!isEditMode">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nationality">Nationality</label>
+            <div class="input-with-icon">
+              <span class="input-icon">🌍</span>
+              <input type="text" id="nationality" [(ngModel)]="nationality" placeholder="Enter your nationality" [readonly]="!isEditMode">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Address</label>
+            <div class="input-with-icon">
+              <span class="input-icon">🏠</span>
+              <input type="text" id="address" [(ngModel)]="address" placeholder="Enter your address" [readonly]="!isEditMode">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="studentId">Student ID</label>
+          <div class="input-with-icon">
+            <span class="input-icon">🆔</span>
+            <input type="text" id="studentId" [(ngModel)]="studentId" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="section-title">Profile Picture</h2>
+
+        <div *ngIf="!isEditMode && profilePicturePreview" class="static-image-display">
+          <img [src]="profilePicturePreview" alt="Profile picture">
+        </div>
+
+        <div *ngIf="!isEditMode && !profilePicturePreview" class="no-document">
+          <p>No profile picture uploaded</p>
+        </div>
+
+        <div *ngIf="isEditMode" class="upload-area">
+          <input type="file" id="profilePicture" (change)="onFileSelected($event, 'profile')" accept="image/*" hidden>
+          <label for="profilePicture" class="upload-label">
+            <div class="upload-content" *ngIf="!profilePicturePreview">
+              <span class="upload-icon">📸</span>
+              <p>Click to upload profile picture</p>
+              <span class="upload-hint">PNG, JPG up to 5MB</span>
+            </div>
+            <div class="image-preview" *ngIf="profilePicturePreview">
+              <img [src]="profilePicturePreview" alt="Profile preview">
+              <div class="preview-overlay">
+                <span>Change Photo</span>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="section-title">Student Card</h2>
+        <button class="btn btn-generate" (click)="toggleStudentCard()">
+          {{ showStudentCard ? 'Hide Student Card' : 'Generate Student Card' }}
+        </button>
+
+        <div class="student-card-container" *ngIf="showStudentCard">
+          <div class="student-card front">
+            <div class="card-header-bg"></div>
+            <div class="card-logo">
+              <img src="https://isaeg.rnu.tn/stylesheets/images/logo.png" alt="ISAEG Logo">
+            </div>
+            <div class="card-content">
+              <div class="card-photo">
+                <img [src]="profilePicturePreview || 'assets/default-avatar.png'" alt="Student Photo">
+              </div>
+              <div class="card-info">
+                <h3>{{ username || 'Student Name' }}</h3>
+                <p class="student-id-display">ID: {{ studentId }}</p>
+                <p class="academic-year">Academic Year: {{ currentYear }}-{{ currentYear + 1 }}</p>
+              </div>
+            </div>
+            <div class="card-footer">
+              <p>ISAEG STUDENT CARD</p>
+            </div>
+          </div>
+
+          <div class="student-card back">
+            <div class="card-header-bg"></div>
+            <div class="card-logo-small">
+              <img src="https://isaeg.rnu.tn/stylesheets/images/logo.png" alt="ISAEG Logo">
+            </div>
+            <div class="back-content">
+              <div class="info-section">
+                <p><strong>Institute:</strong></p>
+                <p>Institut Supérieur d'Administration et de Gestion</p>
+              </div>
+              <div class="info-section">
+                <p><strong>Address:</strong></p>
+                <p>Gabès, Tunisia</p>
+              </div>
+              <div class="info-section">
+                <p><strong>Phone:</strong></p>
+                <p>{{ phone || '+216 XX XXX XXX' }}</p>
+              </div>
+              <div class="signature-area">
+                <div class="signature-line"></div>
+                <p class="signature-label">Director's Signature</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="section-title">Required Documents</h2>
+
+        <div class="form-group">
+          <label>Bachelor's Degree Copy</label>
+
+          <div *ngIf="!isEditMode && bachelorCopyPreview" class="static-image-display">
+            <img [src]="bachelorCopyPreview" alt="Bachelor's Degree">
+          </div>
+
+          <div *ngIf="!isEditMode && !bachelorCopyPreview" class="no-document">
+            <p>No bachelor's degree uploaded</p>
+          </div>
+
+          <div *ngIf="isEditMode" class="upload-area">
+            <input type="file" id="bachelorCopy" (change)="onFileSelected($event, 'bachelor')" accept="image/*,application/pdf" hidden>
+            <label for="bachelorCopy" class="upload-label">
+              <div class="upload-content" *ngIf="!bachelorCopyPreview">
+                <span class="upload-icon">📜</span>
+                <p>Upload Bachelor's Degree</p>
+                <span class="upload-hint">PDF, PNG, JPG up to 5MB</span>
+              </div>
+              <div class="image-preview" *ngIf="bachelorCopyPreview">
+                <img [src]="bachelorCopyPreview" alt="Bachelor degree preview">
+                <div class="preview-overlay">
+                  <span>Change Document</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>CIN Card (National ID)</label>
+
+          <div *ngIf="!isEditMode && cinCardPreview" class="static-image-display">
+            <img [src]="cinCardPreview" alt="CIN Card">
+          </div>
+
+          <div *ngIf="!isEditMode && !cinCardPreview" class="no-document">
+            <p>No CIN card uploaded</p>
+          </div>
+
+          <div *ngIf="isEditMode" class="upload-area">
+            <input type="file" id="cinCard" (change)="onFileSelected($event, 'cin')" accept="image/*,application/pdf" hidden>
+            <label for="cinCard" class="upload-label">
+              <div class="upload-content" *ngIf="!cinCardPreview">
+                <span class="upload-icon">🪪</span>
+                <p>Upload CIN Card</p>
+                <span class="upload-hint">PDF, PNG, JPG up to 5MB</span>
+              </div>
+              <div class="image-preview" *ngIf="cinCardPreview">
+                <img [src]="cinCardPreview" alt="CIN card preview">
+                <div class="preview-overlay">
+                  <span>Change Document</span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isEditMode" class="form-actions">
+        <button class="btn btn-cancel" (click)="cancel()">Cancel</button>
+        <button class="btn btn-save" (click)="save()">Save Changes</button>
+      </div>
     </div>
-
-    
-</body>
-</html>
+  </div>
+</div>

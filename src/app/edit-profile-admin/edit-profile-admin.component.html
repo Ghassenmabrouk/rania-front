@@ -1,0 +1,115 @@
+<div class="edit-profile-container">
+  <button class="back-arrow" (click)="goBackToDashboard()" title="Back to Dashboard">
+    ← Back to Dashboard
+  </button>
+
+  <div class="edit-profile-header">
+    <h1>My Profile</h1>
+    <p class="subtitle">View and update your personal information</p>
+  </div>
+
+  <div class="profile-content">
+    <div class="profile-form">
+
+      <div class="edit-mode-toggle">
+        <button *ngIf="!isEditMode" class="btn btn-edit" (click)="toggleEditMode()">
+          ✏️ Edit Profile
+        </button>
+      </div>
+
+      <div class="form-section">
+        <h2 class="section-title">Professional Information</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="username">Full Name <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="input-icon">👤</span>
+              <input type="text" id="username" [(ngModel)]="username" placeholder="Enter your full name" [readonly]="!isEditMode" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="input-icon">📧</span>
+              <input type="email" id="email" [(ngModel)]="email" placeholder="your.email@example.com" [readonly]="!isEditMode" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <div class="input-with-icon">
+              <span class="input-icon">📱</span>
+              <input type="tel" id="phone" [(ngModel)]="phone" placeholder="+216 XX XXX XXX" [readonly]="!isEditMode">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="joinDate">Join Date</label>
+            <div class="input-with-icon">
+              <span class="input-icon">📅</span>
+              <input type="date" id="joinDate" [(ngModel)]="joinDate" [readonly]="!isEditMode">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+          <label>Role</label>
+          <div class="input-with-icon">
+            <span class="input-icon">🎯</span>
+            <input type="text" [value]="role" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="department">Department <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="input-icon">🏢</span>
+              <select id="department" [(ngModel)]="department" [disabled]="!isEditMode" required>
+                <option value="">Select a department</option>
+                <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="section-title">Profile Picture</h2>
+
+        <div *ngIf="!isEditMode && profilePicturePreview" class="static-image-display">
+          <img [src]="profilePicturePreview" alt="Profile picture">
+        </div>
+
+        <div *ngIf="!isEditMode && !profilePicturePreview" class="no-document">
+          <p>No profile picture uploaded</p>
+        </div>
+
+        <div *ngIf="isEditMode" class="upload-area">
+          <input type="file" id="profilePicture" (change)="onFileSelected($event)" accept="image/*" hidden>
+          <label for="profilePicture" class="upload-label">
+            <div class="upload-content" *ngIf="!profilePicturePreview">
+              <span class="upload-icon">📸</span>
+              <p>Click to upload profile picture</p>
+              <span class="upload-hint">PNG, JPG up to 5MB</span>
+            </div>
+            <div class="image-preview" *ngIf="profilePicturePreview">
+              <img [src]="profilePicturePreview" alt="Profile preview">
+              <div class="preview-overlay">
+                <span>Change Photo</span>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div *ngIf="isEditMode" class="form-actions">
+        <button class="btn btn-cancel" (click)="cancel()">Cancel</button>
+        <button class="btn btn-save" (click)="save()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
